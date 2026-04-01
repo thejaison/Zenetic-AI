@@ -3,9 +3,11 @@ from langchain_core.prompts import PromptTemplate
 import os
 from dotenv import load_dotenv
 
-load_dotenv() # this is for loading environment variables
+load_dotenv()
 
 API_KEY = os.getenv("GOOGLE_API_KEY")
+if not API_KEY:c
+    raise ValueError("GOOGLE_API_KEY environment variable is not set.")
 
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash", temperature=0.7, max_output_tokens=2048, google_api_key=API_KEY

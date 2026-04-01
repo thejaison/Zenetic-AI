@@ -15,4 +15,7 @@ client = gspread.authorize(creds)
 sheet = client.open("Fitness Client").sheet1
 
 def save_to_sheet(name, age, weight, email):
-    sheet.append_row([name, age, weight, email])
+    try:
+        sheet.append_row([name, age, weight, email])
+    except Exception as e:
+        print(f"Error saving to sheet: {e}")

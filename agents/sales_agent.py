@@ -17,17 +17,27 @@ def handle_sales(user_id, message):
         return "Nice🍸! What’s your age?"
     
     if user_state.get(user_id) == "ask_age":
-        user_age[user_id] = message
-        user_state[user_id] = "ask_weight"
-        return "Got it! And what’s your current weight?"
+        try:
+            age = int(message)
+            user_age[user_id] = str(age)
+            user_state[user_id] = "ask_weight"
+            return "Got it! And what’s your current weight?"
+        except ValueError:
+            return "Please enter a valid age (number)."
     
     if user_state.get(user_id) == "ask_weight":
-        user_weight[user_id] = message
-        user_state[user_id] = "ask_email"
-        return "Perfect! What's your mail id?"
+        try:
+            weight = float(message)
+            user_weight[user_id] = str(weight)
+            user_state[user_id] = "ask_email"
+            return "Perfect! What's your mail id?"
+        except ValueError:
+            return "Please enter a valid weight (number)."
     
     if user_state.get(user_id) == "ask_email":
         email = message
+        if "@" not in email or "." not in email:
+            return "Please enter a valid email address."
 
         save_to_sheet(
             user_name[user_id],
